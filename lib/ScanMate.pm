@@ -1,12 +1,12 @@
 package ScanMate;
-use Mojo::Base "Mojolicious";
+use Mojo::Base 'Mojolicious';
 
 sub startup {
   my ($app) = @_;
 
-  $app->moniker("scanmate");
+  $app->moniker('scanmate');
 
-  push @{$app->commands->namespaces}, "ScanMate::Command";
+  push @{$app->commands->namespaces}, 'ScanMate::Command';
 
   $app->plugin("Config" => {
     default => {
@@ -20,12 +20,12 @@ sub startup {
 
   $app->secrets($app->config('secrets'));
 
-  $app->plugin("Minion" => {
+  $app->plugin('Minion' => {
     Pg => $app->config('postgres')
   });
 
-  $app->plugin("Minion::Admin");
-  $app->plugin("ScanMate::Nmap");
+  $app->plugin('Minion::Admin');
+  $app->plugin('ScanMate::Nmap');
 }
 
 1;

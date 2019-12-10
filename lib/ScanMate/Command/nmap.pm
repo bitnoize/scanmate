@@ -1,7 +1,6 @@
-package Minion::Command::scanmate::nmap;
-use Mojo::Base "Mojolicious::Command";
+package ScanMate::Command::nmap;
+use Mojo::Base 'Mojolicious::Command';
 
-use Mojo::JSON qw/encode_json decode_json/;
 use Mojo::Util qw(dumper getopt tablify);
 
 has description => 'Manage ScanMate jobs';
@@ -14,8 +13,12 @@ sub run {
 
   getopt \@args,
     'A|attempts=i'  => \$opts->{attempts},
+    'p|prefix=s'    => \$opts->{prefix};
 
-  $self->app->minion->enqueue(nmap_simple => []);
+  $self->app->minion->enqueue(scan => [
+    'fast' => "whoer/leetka",
+    ["leetka.whteam.net"]
+  ]);
 }
 
 1;
