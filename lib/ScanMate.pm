@@ -7,14 +7,13 @@ sub startup {
   $app->moniker('scanmate');
 
   push @{$app->commands->namespaces}, 'ScanMate::Command';
+  push @{$app->static->paths}, $app->home->child('scans');
 
-  $app->plugin("Config" => {
+  $app->plugin('Config' => {
     default => {
       secrets   => [],
       postgres  => "postgresql://scanmate:notasecret\@localhost/scanmate",
-
-      nmap_bin  => "/usr/bin/nmap",
-      nmap_top_ports  => 1024,
+      authorize => "scanmate:notasecret",
     }
   });
 
@@ -24,8 +23,8 @@ sub startup {
     Pg => $app->config('postgres')
   });
 
-  $app->plugin('Minion::Admin');
-  $app->plugin('ScanMate::Nmap');
+  $app->plugin('ScanMate::Routes');
+  $app->plugin('ScanMate::Tasks');
 }
 
 1;

@@ -36,3 +36,6 @@ inc/
 
 # Config
 scanmate.conf
+
+scans/*
+!scans/.gitkeep

@@ -1,0 +1,3 @@
+% my $stats = stash('minion_stats');
+
+<%== app->dumper($stats); %>
